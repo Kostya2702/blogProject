@@ -1,14 +1,14 @@
-from django import url
+from django import url, incude
 from django import admin
-from django import include
+from qa import views
 
 urlpatterns = [
     url('^admin/', admin.site.urls),
-    url('^$', include('qa.urls')),
-    url('^login/$', include('qa.urls')),
-    url('^signup/$', include('qa.urls')),
-    url('^question/\d+/$', include('qa.urls')),
-    url('^ask/$', include('qa.urls')),
-    url('^popular/.', include('qa.urls')),
-    url('^new/$', include('qa.urls')),
+    url('^$', views.test),
+    url('^login/$', views.test),
+    url('^signup/$', views.test),
+    url('^question/\d+/$', views.test),
+    url('^ask/$', views.test),
+    url('^popular/.', views.test),
+    url('^new/$', views.test),
 ]
