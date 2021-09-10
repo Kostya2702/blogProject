@@ -1,13 +1,14 @@
+from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('qa.urls')),
-    path('login/', include('qa.urls')),
-    path('signup/', include('qa.urls')),
-    path('question/<27>/', include('qa.urls')),
-    path('ask/', include('qa.urls')),
-    path('popular/', include('qa.urls')),
-    path('new/', include('qa.urls')),
+    url('admin/', admin.site.urls),
+    url('', include('qa.urls')),
+    url('login/', include('qa.urls')),
+    url('signup/', include('qa.urls')),
+    url('question/<27>/', include('qa.urls')),
+    url('ask/', include('qa.urls')),
+    url('popular/', include('qa.urls')),
+    url('new/', include('qa.urls')),
 ]

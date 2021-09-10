@@ -1,6 +1,6 @@
-from django.urls import path
+from django.conf.urls import url
 from qa.views import test
 
 urlpatterns = [
-    path('.*?', test)
+    url('.*?', test)
 ]
