@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from ask.django import HttpResponse
 
 
 def test(request, *args, **kwargs):

@@ -1,6 +1,6 @@
-from django.conf.urls import url
-from django.contrib import admin
-from django.urls import include
+from ask.django import url
+from ask.django import admin
+from ask.django import include
 
 urlpatterns = [
     url('admin/', admin.site.urls),
