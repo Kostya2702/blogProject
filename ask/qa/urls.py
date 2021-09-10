@@ -1,4 +1,4 @@
-from ask.django import url
+from django import url
 from qa.views import test
 
 urlpatterns = [

@@ -1,4 +1,4 @@
-from ask.django import AppConfig
+from django import AppConfig
 
 
 class QaConfig(AppConfig):
