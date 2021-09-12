@@ -9,6 +9,6 @@ urlpatterns = [
     url('^signup/$', views.test),
     url('^question/\d+/$', views.test),
     url('^ask/$', views.test),
-    url('^popular/.', views.test),
+    url('^popular/$', views.test),
     url('^new/$', views.test),
 ]
