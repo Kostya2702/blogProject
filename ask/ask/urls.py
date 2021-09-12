@@ -1,4 +1,4 @@
-from django import url, incude
+from django import url
 from django import admin
 from qa import views
 
