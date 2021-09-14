@@ -11,6 +11,7 @@ class QuestionManager(models.Manager):
 
 
 class Question(models.Model):
+    objects = QuestionManager()
     title = models.CharField(max_length=100)
     text = models.TextField()
     added_at = models.DateTimeField(auto_now=True)
@@ -20,8 +21,6 @@ class Question(models.Model):
                                related_name='author_question')
     likes = models.ManyToManyField(User,
                                    related_name='likes_question')
-
-    question_text = QuestionManager()
 
     def __unicode__(self):
         return self.title
