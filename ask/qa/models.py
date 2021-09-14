@@ -29,9 +29,8 @@ class Question(models.Model):
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateField(auto_now=True)
-    question = models.ForeignKey(User,
-                                 on_delete=models.CASCADE,
-                                 related_name='text_question')
+    question = models.ManyToManyField(Question.text,
+                                      related_name='text_question')
     author = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                related_name='author_answer')
