@@ -4,10 +4,10 @@ from django.db import models
 
 class QuestionManager(models.Manager):
     def new(self):
-        return super().get_queryset().order_by('-added_at_q')
+        return self.order_by('-added_at_q')
 
     def popular(self):
-        return super().get_queryset().order_by('-likes')
+        return self.order_by('-likes')
 
 
 class Question(models.Model):
@@ -21,7 +21,6 @@ class Question(models.Model):
     likes = models.ManyToManyField(User,
                                    related_name='likes_question')
 
-    objects = models.Manager()
     question_text = QuestionManager()
 
     def __unicode__(self):
