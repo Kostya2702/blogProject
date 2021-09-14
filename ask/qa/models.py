@@ -30,6 +30,7 @@ class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateField(auto_now=True)
     question = models.ManyToManyField(User,
+                                      blank=True,
                                       related_name='text_question')
     author = models.ForeignKey(User,
                                on_delete=models.CASCADE,
