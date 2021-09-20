@@ -1,12 +1,13 @@
 from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    url('', views.new_questions),
-    url('login/', views.test),
+    path('', views.new_questions),
+    url('login/', views.test, name='home'),
     url('signup/', views.test),
     url('question/\d+/', views.test),
     url('ask/', views.test),
-    url('popular/', views.test),
-    url('new/', views.test)
+    path('popular/', views.popular_post),
+    path('new/', views.test)
 ]

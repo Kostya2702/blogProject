@@ -9,6 +9,24 @@
 
 </head>
 <body>
+<header>
+    <div class="px-3 py-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" href="#home">
+                <div class="bg-white"></div>
+                </a>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-sm-center">
+                    <li>
+                        <a class="nav-link text-secondary" href="#">
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
 <!--Вывод постов по новизне-->
 <div class="container">
     <div class="row row-cols-2">
@@ -16,27 +34,39 @@
         {% endblock %}
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                {% for page in page_obj.paginator.page_range %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ p }}">{{ p }}</a>
-                </li>
+                {% for p in paginator.page_range %}
+                    {% if page == page %}
+                        <li class="active">
+                    {% else %}
+                        <li>
+                    {% endif %}
+                            <a class="page-link" href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
+                        </li>
                 {% endfor %}
             </ul>
         </nav>
     </div>
 </div>
 <!--Вывод постов по популярности-->
-{% block popular %}
-{% endblock %}
-<nav aria-label="Page navigation">
-    <ul class="pagination">
-        {% for num_page in page_obj_pop.paginator.page_range %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{p}}">{{p}}</a>
-        </li>
-        {% endfor %}
-    </ul>
-</nav>
+<div class="container">
+    <div class="row row-cols-2">
+        {% block popular %}
+        {% endblock %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% for p in paginator.page_range %}
+                    {% if page == page %}
+                        <li class="active">
+                    {% else %}
+                        <li>
+                    {% endif %}
+                            <a class="page-link" href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
+                        </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</div>
 
 </body>
 </html>
