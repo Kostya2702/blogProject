@@ -9,28 +9,16 @@ def test(request, *args, **kwargs):
 
 
 def new_questions(request):
-    question_list = Question.objects_new.new()
-    limit = request.GET.get('limit', 10)
-    page = request.GET.get('page', 1)
-    paginator = Paginator(question_list, limit)
-    paginator.baseurl = 'new/?page='
-    page_obj = paginator.page(page)
-    return render(request, 'qa/index.html', {
-        question_list: page_obj.object_list,
-        paginator: paginator, page: page_obj,
-        'title': 'Новое'
-    })
+    questions_set = Question.objects_new.new()
+    paginator = Paginator(questions_set, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'qa/index.html', {'page_obj': page_obj, 'title': 'Новое'})
 
 
 def popular_post(request):
-    pop_post_list = Question.objects_new.popular()
-    limit = request.GET.get('limit', 10)
-    page = request.GET.get('page', 1)
-    paginator = Paginator(pop_post_list, limit)
-    paginator.baseurl = 'new/?page='
-    page_obj_pop = paginator.page(page)
-    return render(request, 'qa/popular.html', {
-        pop_post_list: page_obj_pop.object_list,
-        paginator: paginator, page: page_obj_pop,
-        'title': 'Популярное'
-    })
+    pop_questions_set = Question.objects_new.new()
+    paginator = Paginator(pop_questions_set, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'qa/popular.html', {'page_obj': page_obj, 'title': 'Новое'})

@@ -3,12 +3,12 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    url('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('qa.urls')),
-    url('login/', include('qa.urls')),
-    url('signup/', include('qa.urls')),
-    url('question/\d+/', include('qa.urls')),
-    url('ask/', include('qa.urls')),
+    path('login/', include('qa.urls')),
+    path('signup/', include('qa.urls')),
+    path('question/\d+/', include('qa.urls')),
+    path('ask/', include('qa.urls')),
     path('popular/', include('qa.urls')),
     path('new/', include('qa.urls')),
 ]
