@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 
 class QuestionManager(models.Manager):
     def new(self):
-        return self.order_by('-added_at')
+        return self.order_by('-id')
 
     def popular(self):
         return self.order_by('-likes')
@@ -21,6 +22,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('question', kwargs={'quest_id': self.pk})
 
 
 class Answer(models.Model):

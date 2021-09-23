@@ -1,8 +1,22 @@
 {% extends 'qa/base.html' %}
 
-{% block title %}
-Популярное
-{% endblock %}
 
 {% block content %}
+    {% for q in page_obj %}
+        <h1>{{ q.title }}</h1>
+        <p><a href="{{ q.get_absolute_url }}">Вопрос</a></p>
+    {% endfor %}
+{% endblock %}
+
+
+{% block paginaton %}
+    {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+            <li class="page-item active page-link" aria-current="page">{{ p }}</li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

@@ -15,19 +15,19 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                      <a href="{% url 'home' %}" class="nav-link text-secondary">Главная</a>
+                      <a href="/" class="nav-link text-secondary">Главная</a>
                     </li>
                     <li>
-                      <a href="{% url 'question' %}" class="nav-link text-white">Вопросы</a>
+                      <a href="#" class="nav-link text-white">Вопросы</a>
                     </li>
                     <li>
-                      <a href="{% url 'ask' %}" class="nav-link text-white">Ответы</a>
+                      <a href="#" class="nav-link text-white">Ответы</a>
                     </li>
                     <li>
                       <a href="{% url 'popular' %}" class="nav-link text-white">Популярное</a>
                     </li>
                     <li>
-                      <a href="{% url 'new' %}" class="nav-link text-white">Новое</a>
+                      <a href="#" class="nav-link text-white">Новое</a>
                     </li>
                 </ul>
             </div>
@@ -48,28 +48,29 @@
 </header>
 <!--Вывод постов по новизне-->
 <div class="container">
-    {% block content %}
-    {% endblock %}
+    <div>
+        {% block content %}
+        {% endblock %}
+        {% if page_obj.has_other_pages %}
+            <nav aria-label="Paginator">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Предыдущая">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% block paginaton %}
+                    {% endblock %}
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Следующая">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
 </div>
-<!--<div class="container">-->
-<!--    <div class="row row-cols-2">-->
-<!--        {% block title %}-->
-<!--        {% endblock %}-->
-<!--        <nav aria-label="Page navigation">-->
-<!--            <ul class="pagination">-->
-<!--                {% for p in paginator.page_range %}-->
-<!--                    {% if page_obj.number == p %}-->
-<!--                        <li class="active">-->
-<!--                    {% else %}-->
-<!--                        <li>-->
-<!--                            <a class="page-link" href="?page={{ p }}">{{ p }}</a>-->
-<!--                        </li>-->
-<!--                    {% endif %}-->
-<!--                {% endfor %}-->
-<!--            </ul>-->
-<!--        </nav>-->
-<!--    </div>-->
-<!--</div>-->
 
 </body>
 </html>
