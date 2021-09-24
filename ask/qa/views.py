@@ -9,7 +9,7 @@ def test(request, *args, **kwargs):
 
 
 def new_questions(request):
-    questions_set = Question.objects_new.new()
+    questions_set = Question.objects.new()
     paginator = Paginator(questions_set, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -17,7 +17,7 @@ def new_questions(request):
 
 
 def popular_post(request):
-    questions_set = Question.objects_new.popular()
+    questions_set = Question.objects.popular()
     paginator = Paginator(questions_set, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
