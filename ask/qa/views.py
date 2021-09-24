@@ -25,5 +25,5 @@ def popular_post(request):
 
 
 def question_page(request, quest_id):
-    quest_page = Question.objects_new.all()
+    quest_page = get_object_or_404(Question, pk=quest_id)
     return render(request, 'qa/question.html', {'quest_page': quest_page})

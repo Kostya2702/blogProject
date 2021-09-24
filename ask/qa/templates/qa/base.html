@@ -15,19 +15,19 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                      <a href="/" class="nav-link text-secondary">Главная</a>
+                      <a href="{% url 'home' %}" class="nav-link text-secondary">Главная</a>
                     </li>
                     <li>
                       <a href="#" class="nav-link text-white">Вопросы</a>
                     </li>
                     <li>
-                      <a href="#" class="nav-link text-white">Ответы</a>
+                      <a href="{% url 'ask' %}" class="nav-link text-white">Ответы</a>
                     </li>
                     <li>
                       <a href="{% url 'popular' %}" class="nav-link text-white">Популярное</a>
                     </li>
                     <li>
-                      <a href="#" class="nav-link text-white">Новое</a>
+                      <a href="{% url 'new' %}" class="nav-link text-white">Новое</a>
                     </li>
                 </ul>
             </div>
