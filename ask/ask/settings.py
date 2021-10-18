@@ -65,24 +65,13 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'web',
-        'USER': 'box',
-        'PASSWORD': '',
+        'NAME': 'blog_django',
+        'USER': 'kostya',
+        'PASSWORD': 'Kostya_123',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'blog_django',
-#         'USER': 'kostya',
-#         'PASSWORD': 'Kostya_123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
 
 
 # Password validation

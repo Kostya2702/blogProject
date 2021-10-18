@@ -2,5 +2,13 @@
 
 {% block content %}
     <h2>{{ quest_page.title }}</h2>
-    <p>{{ quest_page.text }}</p>
+    <h6>{{ quest_page.text }}</h6>
+    {% for ans in answers %}
+            <p>{{ ans.text }}</p>
+    {% endfor %}
+    <form action="{{ quest_page }}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить</button>
+    </form>
 {% endblock %}

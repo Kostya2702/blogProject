@@ -2,9 +2,10 @@
 
 
 {% block content %}
+    <h1>{{ title }}</h1>
     {% for q in page_obj %}
-        <h1>{{ q.title }}</h1>
-        <p><a href="{{ q.get_absolute_url }}">Вопрос</a></p>
+        <h2>{{ q.title }}</h2>
+        <p><a href="{{ q.get_absolute_url }}">Читать</a></p>
     {% endfor %}
 {% endblock %}
 
