@@ -26,16 +26,18 @@ def popular(request):
 
 
 def question(request, quest_id):
+    quest_page = get_object_or_404(Question, pk=quest_id)
+    answers = Answer.objects.filter(question=quest_id)
+
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
-            return redirect(form.save())
+            form.save()
+            return redirect(quest_page)
     else:
-        AnswerForm()
+        form = AnswerForm()
 
-    quest_page = get_object_or_404(Question, pk=quest_id)
-    answers = Answer.objects.filter(question=quest_id)
-    return render(request, 'qa/question.html', {'quest_page': quest_page, 'answers': answers})
+    return render(request, 'qa/question.html', {'form': form, 'quest_page': quest_page, 'answers': answers})
 
 
 def ask(request):
