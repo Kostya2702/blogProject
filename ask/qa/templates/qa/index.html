@@ -2,9 +2,11 @@
 
 
 {% block content %}
-    <h1>{{ title }}</h1>
     {% for q in page_obj %}
         <h2>{{ q.title }}</h2>
+        <p>{{ q.added_at }}</p>
+        <p>{{ q.rating }}</p>
+        <p>{{ q.likes }}</p>
         <p><a href="{{ q.get_absolute_url }}">Читать</a></p>
     {% endfor %}
 {% endblock %}

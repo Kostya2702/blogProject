@@ -4,6 +4,6 @@
     <form action="{% url 'ask' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Добавить</button>
+        <button type="submit" class="btn btn-dark">Добавить</button>
     </form>
 {% endblock %}

@@ -9,26 +9,22 @@
 
 </head>
 <body>
+{% block mainmenu %}
 <header>
     <div class="px-3 py-2 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                    <li>
-                      <a href="{% url 'home' %}" class="nav-link text-secondary">Главная</a>
-                    </li>
-                    <li>
-                      <a href="#" class="nav-link text-white">Вопросы</a>
-                    </li>
-                    <li>
-                      <a href="{% url 'ask' %}" class="nav-link text-white">Задать вопрос</a>
-                    </li>
-                    <li>
-                      <a href="{% url 'popular' %}" class="nav-link text-white">Популярное</a>
-                    </li>
-                    <li>
-                      <a href="{% url 'new' %}" class="nav-link text-white">Новое</a>
-                    </li>
+                    {% for el in menu %}
+                            <li>
+                                <a href="{% url el.url_name %}" class="nav-link" style="color: #9370DB">{{ el.title }}</a>
+                            </li>
+                            {% comment %}
+                            <li>
+                                <a href="{% url el.url_name %}" class="nav-link text-white">{{ el.title }}</a>
+                            </li>
+                            {% endcomment %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -38,15 +34,11 @@
         <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
-
-        <div class="text-end">
-          <button type="button" class="btn btn-light text-dark me-2">Login</button>
-          <button type="button" class="btn btn-primary">Sign-up</button>
-        </div>
       </div>
     </div>
 </header>
-<!--Вывод постов по новизне-->
+{% endblock mainmenu %}
+
 <div class="container">
     <div>
         {% block content %}

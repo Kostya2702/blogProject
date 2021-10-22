@@ -1,10 +1,5 @@
 from django import forms
-from django.forms import inlineformset_factory
-from django.forms import BaseInlineFormSet
 from .models import *
-
-
-QuestionFormSet = inlineformset_factory(Question, Answer, fields='question')
 
 
 class AskForm(forms.ModelForm):
@@ -13,14 +8,21 @@ class AskForm(forms.ModelForm):
         fields = ['title', 'text', 'author']
 
 
-class AnswerForm(forms.ModelForm, BaseInlineFormSet):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['question'] = QuestionFormSet
-
+class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = ['text', 'question', 'author']
+        fields = ('text', 'author')
         widgets = {
-            'text': forms.Textarea(attrs={'class': 'form-control'}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
         }
+
+# class AnswerForm(forms.Form):
+#     parent_comment = forms.IntegerField(
+#         widget=forms.HiddenInput,
+#         required=False
+#     )
+#
+#     text = forms.CharField(
+#         label="",
+#         widget=forms.Textarea
+#     )
