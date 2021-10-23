@@ -2,7 +2,6 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import FormMixin
 
@@ -47,47 +46,51 @@ class Popular(DataMixin, ListView):
         return Question.objects.popular()
 
 
-# def popular(request):
-#     questions_set_pop = Question.objects.popular()
-#     paginator = Paginator(questions_set_pop, 10)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#     return render(request, 'qa/popular.html', {'page_obj': page_obj, 'menu': menu})
-
-
-class QuestionPage(DetailView):
-    model = Question
+class QuestionPage(FormMixin, DataMixin, DetailView):
     template_name = 'qa/question.html'
-    # form_class = AnswerForm
+    pk_url_kwarg = 'quest_id'
+    form_class = AnswerForm
     context_object_name = 'quest_page'
-    #
-    # def get_success_url(self):
-    #     # return reverse('question', kwargs={'quest_id': self.object.pk})
-    #     return self.object.get_absolute_url()
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = self.get_object()
-        # context['answers'] = self.object.quest_page.filter(question=question)
-        return context
-    #
-    # def get_initial(self):
-    #     return {'event': self.get_object()}
+        context_mixin = self.get_user_context(title=context['quest_page'])
+        context['form'] = self.get_form()
+        context['answers'] = self.object.question.filter(question=self.kwargs['quest_id'])
+        return dict(list(context.items()) + list(context_mixin.items()))
 
-    # def post(self, *args, **kwargs):
-    #     self.object = self.object()
-    #     form = self.get_form()
-    #
-    #     if form.is_valid():
-    #         return self.form_valid(form)
-    #     else:
-    #         return self.form_invalid(form)
+    def get_initial(self):
+        return {'event': self.get_object()}
 
-    # def form_valid(self, form):
-    #     new_answer = form.save(commit=False)
-    #     new_answer.question = self.object()
-    #     new_answer.save()
-    #     return super().form_valid(form)
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        new_answer = form.save(commit=False)
+        new_answer.question = self.get_object()
+        new_answer.save()
+        return super().form_valid(form)
+
+
+class ShowAskForm(DataMixin, CreateView):
+    form_class = AskForm
+    template_name = 'qa/ask.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context_mixin = self.get_user_context(title='Задать question')
+        return dict(list(context.items()) + list(context_mixin.items()))
+
+
 # def question(request, quest_id):
 #     quest_page = get_object_or_404(Question, pk=quest_id)
 #     answers = quest_page.question.filter(question=quest_page)
@@ -114,12 +117,4 @@ class QuestionPage(DetailView):
 #     return render(request, 'qa/question.html', context=context)
 
 
-class ShowAskForm(DataMixin, CreateView):
-    form_class = AskForm
-    template_name = 'qa/ask.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context_mixin = self.get_user_context(title='Задать question')
-        return dict(list(context.items()) + list(context_mixin.items()))
 

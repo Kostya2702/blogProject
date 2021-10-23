@@ -15,16 +15,26 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                    {% for el in menu %}
+                    {% if not user.is_authenticated %}
+                        {% for el in menu %}
                             <li>
                                 <a href="{% url el.url_name %}" class="nav-link" style="color: #9370DB">{{ el.title }}</a>
                             </li>
-                            {% comment %}
-                            <li>
-                                <a href="{% url el.url_name %}" class="nav-link text-white">{{ el.title }}</a>
-                            </li>
-                            {% endcomment %}
-                    {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <li>
+                            <a href="{% url 'home' %}" class="nav-link" style="color: #9370DB">Главная</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'popular' %}" class="nav-link" style="color: #9370DB">Популярное</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'ask' %}" class="nav-link" style="color: #9370DB">Задать вопрос</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}" class="nav-link text-white">Log out</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
