@@ -15,6 +15,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Celery settings
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 10 * 60
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -25,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qa',
-    'crispy_forms'
 ]
 
 MIDDLEWARE = [

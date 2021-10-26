@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +51,7 @@
 {% endblock mainmenu %}
 
 <div class="container">
-    <div>
+    <div class="row">
         {% block content %}
         {% endblock %}
         {% if page_obj.has_other_pages %}

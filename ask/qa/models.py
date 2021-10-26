@@ -8,7 +8,7 @@ class QuestionManager(models.Manager):
         return self.order_by('-id')
 
     def popular(self):
-        return self.order_by('-likes')
+        return self.order_by('-rating')
 
 
 class Question(models.Model):
@@ -18,7 +18,7 @@ class Question(models.Model):
     added_at = models.DateTimeField(blank=True, auto_now=True)
     rating = models.IntegerField(default=0)
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    likes = models.ManyToManyField(User, related_name='likes_question')
+    likes = models.ManyToManyField(User, related_name='likes_question', blank=True)
 
     def __str__(self):
         return self.title

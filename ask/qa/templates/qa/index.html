@@ -3,11 +3,23 @@
 
 {% block content %}
     {% for q in page_obj %}
-        <h2>{{ q.title }}</h2>
-        <p>{{ q.added_at }}</p>
-        <p>{{ q.rating }}</p>
-        <p>{{ q.likes }}</p>
-        <p><a href="{{ q.get_absolute_url }}">Читать</a></p>
+        <div class="col-7"><h2>{{ q.title }}</h2></div>
+        <div class="col-3"><p>{{ q.added_at }}</p></div>
+        <div class="col"><p>{{ q.rating }}</p></div>
+        <div class="col">
+            {% with q.likes.all.count as total_likes %}
+                <h6>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         height="16"
+                         class="bi bi-heart-fill"
+                         viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg> {{ total_likes }}
+                </h6>
+            {% endwith %}
+        </div>
+        <p><a class="h6" style="text-decoration: none; color: #9370DB" href="{{ q.get_absolute_url }}">Читать</a></p>
     {% endfor %}
 {% endblock %}
 

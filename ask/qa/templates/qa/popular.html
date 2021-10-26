@@ -6,7 +6,9 @@
         <h2>{{ q.title }}</h2>
         <p>{{ q.added_at }}</p>
         <p>{{ q.rating }}</p>
-        <p>{{ q.likes }}</p>
+        {% for like in q.likes.all %}
+            <p>{{ like.username }}</p>
+        {% endfor %}
         <p><a href="{{ q.get_absolute_url }}">Читать</a></p>
     {% endfor %}
 {% endblock %}

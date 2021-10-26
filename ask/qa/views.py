@@ -77,6 +77,7 @@ class QuestionPage(FormMixin, DataMixin, DetailView):
     def form_valid(self, form):
         new_answer = form.save(commit=False)
         new_answer.question = self.get_object()
+        new_answer.author = self.request.user
         new_answer.save()
         return super().form_valid(form)
 

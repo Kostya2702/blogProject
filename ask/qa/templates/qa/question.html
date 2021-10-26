@@ -2,6 +2,17 @@
 
 {% block content %}
     <h1>{{ quest_page.title }}</h1>
+    {{ comment }}
+    <form action="{{ quest_page.get_absolute_url }}">
+        {% csrf_token %}
+        <span>
+            {% for i, v in rating.fields.rating.choices %}
+                <input id="rating {{ v }}" type="radio" value="{{ v }}" name="rating">
+            {% endfor %}
+        </span>
+    </form>
+    {{ endcomment }}
+
     <h6>{{ quest_page.text }}</h6>
 
     <div class="row d-flex justify-content-center">
@@ -12,12 +23,11 @@
                         {% csrf_token %}
                         <div class="mb-4">
                             <label class="form-label" for="{{ form.text.get_absolute_url }}">
-                                Comment
+                                Answer
                             </label>
                                     {{ form.text }}
                         </div>
                         {{ form.question }}
-                        {{ form.author }}
                         <button type="submit" class="btn btn-dark">Добавить</button>
                     </form>
                 </div>
