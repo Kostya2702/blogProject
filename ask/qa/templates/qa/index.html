@@ -2,10 +2,22 @@
 
 
 {% block content %}
-    {% for q in page_obj %}
-        <div class="col-7"><h2>{{ q.title }}</h2></div>
-        <div class="col-3"><p>{{ q.added_at }}</p></div>
-        <div class="col"><p>{{ q.rating }}</p></div>
+    {% for q in index_page %}
+        <div class="row border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
+        <div class="col-7"><h5>{{ q.title }}</h5></div>
+        <div class="col"><p><small>{{ q.added_at }}</small></p></div>
+        <div class="col"><p><small>{{ q.views }}</small></p></div>
+        <p><a class="h6" style="text-decoration: none; color: #9370DB" href="{{ q.get_absolute_url }}">Читать</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+
+
+
+
+{% comment %}
         <div class="col">
             {% with q.likes.all.count as total_likes %}
                 <h6>
@@ -19,19 +31,4 @@
                 </h6>
             {% endwith %}
         </div>
-        <p><a class="h6" style="text-decoration: none; color: #9370DB" href="{{ q.get_absolute_url }}">Читать</a></p>
-    {% endfor %}
-{% endblock %}
-
-
-{% block paginaton %}
-    {% for p in page_obj.paginator.page_range %}
-        {% if page_obj.number == p %}
-            <li class="page-item active page-link" aria-current="page">{{ p }}</li>
-        {% else %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
-            </li>
-        {% endif %}
-    {% endfor %}
-{% endblock %}
+{% endcomment %}

@@ -16,6 +16,7 @@ def test(request, *args, **kwargs):
 
 class HomePage(DataMixin, ListView):
     template_name = 'qa/index.html'
+    context_object_name = 'index_page'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,6 +37,7 @@ class HomePage(DataMixin, ListView):
 
 class Popular(DataMixin, ListView):
     template_name = 'qa/popular.html'
+    context_object_name = 'popular_page'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,6 +46,18 @@ class Popular(DataMixin, ListView):
 
     def get_queryset(self):
         return Question.objects.popular()
+
+
+# Получение айпи пользователя
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')  # значение айпи пользователя
+
+    return ip
 
 
 class QuestionPage(FormMixin, DataMixin, DetailView):
@@ -60,6 +74,7 @@ class QuestionPage(FormMixin, DataMixin, DetailView):
         context_mixin = self.get_user_context(title=context['quest_page'])
         context['form'] = self.get_form()
         context['answers'] = self.object.question.filter(question=self.kwargs['quest_id'])
+
         return dict(list(context.items()) + list(context_mixin.items()))
 
     def get_initial(self):
@@ -90,6 +105,15 @@ class ShowAskForm(DataMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context_mixin = self.get_user_context(title='Задать question')
         return dict(list(context.items()) + list(context_mixin.items()))
+
+    def form_valid(self, form):
+        new_ask = form.save(commit=False)
+        new_ask.author = self.request.user
+        new_ask.save()
+        return super().form_valid(form)
+
+
+
 
 
 # def question(request, quest_id):

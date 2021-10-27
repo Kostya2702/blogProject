@@ -10,8 +10,8 @@ menu = [
 
 
 class DataMixin:
+    paginate_by = 5
     model = Question
-    context_object_name = 'page_obj'
 
     def get_user_context(self, **kwargs):
         context = kwargs

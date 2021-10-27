@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -39,12 +41,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField('имя', blank=True, null=True, max_length=20)
     is_staff = models.BooleanField('статус персонала', default=False)
     is_active = models.BooleanField('активен', default=True)
+    is_verified = models.BooleanField('verified', default=False)
+    verification_uuid = models.UUIDField('Unique Verification UUID', default=uuid.uuid4)
 
     def get_short_name(self):
         return self.email
 
     def get_full_name(self):
-        return self.email
+        return self.full_name
 
     def __str__(self):
         return self.email
